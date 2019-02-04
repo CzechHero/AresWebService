@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.2" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2" version="2011-07-04" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.2/ares_datatypes_v_1.0.2.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.2" />
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" />
+  <xsd:annotation>
+    <xsd:documentation xml:lang="cs">
+			Sch??ma pro dotazov??n?? registru ARES - dotazy na registr Obchodn??ho rejst????ku
+			verze 1.0.2
+			struktura dotazu je stejn?? jako p??edchoz?? verze 1.0.1, je to jen pro nov?? podporovan?? sch??mata
+			
+			Copyright 2011 Asseco Central Europe, a.s. V??echna pr??va vyhrazena
+		</xsd:documentation>
+    <xsd:appinfo>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+        <rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2">
+          <dc:title> XML Schema pro dotaz na V??pis z Obchodn??ho rejst????ku</dc:title>
+          <dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+          <dc:creator>Asseco Central Europe, a.s.</dc:creator>
+          <dc:subject>XML Schema; dotaz; v??pis z obchodn??ho rejst????ku; ARES</dc:subject>
+          <dc:description>XML Schema s definic?? pro dotaz na v??pis z obchodn??ho rejst????ku</dc:description>
+          <dc:publisher> Ministerstvo financ?? ??esk?? republiky </dc:publisher>
+          <dc:date>2007-05-11</dc:date>
+          <dc:type> XML Schema</dc:type>
+          <dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2/ares_answer_or_v_1.0.2.xsd</dc:identifier>
+          <dc:format>text/xml</dc:format>
+          <dc:language>cz</dc:language>
+          <dc:rights>?? Asseco Central Europe, a.s. 2011</dc:rights>
+        </rdf:Description>
+      </rdf:RDF>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:group name="ICO_datum">
+    <xsd:sequence>
+      <xsd:element name="ICO" type="udt:ico" />
+      <xsd:element minOccurs="0" name="Datum_platnosti" type="xsd:date" />
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:group name="klic_datum">
+    <xsd:sequence>
+      <xsd:element name="Klic_ARES" type="xsd:int" />
+      <xsd:element minOccurs="0" name="Datum_platnosti" type="xsd:date" />
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:complexType name="dotaz">
+    <xsd:sequence>
+      <xsd:element name="Pomocne_ID" type="xsd:int" />
+      <xsd:choice>
+        <xsd:group ref="ICO_datum" />
+        <xsd:group ref="klic_datum" />
+        <xsd:element name="ID_vety" type="xsd:int" />
+      </xsd:choice>
+      <xsd:element minOccurs="0" name="Rozsah" type="dtt:rozsah" />
+      <xsd:element minOccurs="0" default="false" name="Stdadr" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Ares_dotazy">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" name="Dotaz" type="dotaz" />
+      </xsd:sequence>
+      <xsd:attribute name="dotaz_datum_cas" type="xsd:dateTime" use="required" />
+      <xsd:attribute name="dotaz_pocet" type="xsd:int" use="required" />
+      <xsd:attribute name="dotaz_typ" type="dtt:ares_dotaz_typ" use="required" />
+      <xsd:attribute default="XML" name="vystup_format" type="dtt:vystup_format" use="optional" />
+      <xsd:attribute name="validation_XSLT" type="xsd:string" use="required" />
+      <xsd:attribute name="user_mail" type="udt:e_mail" use="optional" />
+      <xsd:attribute default="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3" name="answerNamespaceRequired" type="xsd:anyURI" />
+      <xsd:attribute name="Id" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

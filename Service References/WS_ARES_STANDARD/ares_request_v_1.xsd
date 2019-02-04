@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.1" elementFormDefault="qualified" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1" version="2010-10-12" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.1/ares_datatypes_v_1.0.1.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.1" />
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" />
+  <xsd:annotation>
+    <xsd:documentation xml:lang="cs">
+Sch??ma pro dotazov??n?? registru ARES verze 1.0.1
+Copyright 2009 Asseco Czech Republic, a.s. V??echna pr??va vyhrazena
+Copyright Asseco Central Europe, a.s. 2010
+
+</xsd:documentation>
+    <xsd:appinfo>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+        <rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1">
+          <dc:title>XML Schema, Standard, request</dc:title>
+          <dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+          <dc:creator>Asseco Central Europe, a.s.</dc:creator>
+          <dc:subject>XML Schema; ARES; Standard; request</dc:subject>
+          <dc:description>Po??adavek na detail Standard v ARES</dc:description>
+          <dc:publisher>Ministerstvo financ?? ??esk?? republiky </dc:publisher>
+          <dc:date>2010-07-16</dc:date>
+          <dc:type> XML Schema</dc:type>
+          <dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1/ares_request_v_1.0.1.xsd</dc:identifier>
+          <dc:format>text/xml</dc:format>
+          <dc:language>cz</dc:language>
+          <dc:rights>?? Asseco Central Europe, a.s. 2010</dc:rights>
+        </rdf:Description>
+      </rdf:RDF>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="Ares_dotazy">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" name="Dotaz" type="dotaz" />
+      </xsd:sequence>
+      <xsd:attribute name="dotaz_datum_cas" type="xsd:dateTime" use="required" />
+      <xsd:attribute name="dotaz_pocet" type="xsd:int" use="required" />
+      <xsd:attribute name="dotaz_typ" type="dtt:ares_dotaz_typ" use="required" />
+      <xsd:attribute default="XML" name="vystup_format" type="dtt:vystup_format" use="optional" />
+      <xsd:attribute name="validation_XSLT" type="xsd:string" use="required" />
+      <xsd:attribute name="user_mail" type="udt:e_mail" use="required" />
+      <xsd:attribute name="answerNamespaceRequired" type="xsd:anyURI" use="required" />
+      <xsd:attribute name="Id" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="dotaz">
+    <xsd:sequence>
+      <xsd:element name="Pomocne_ID" type="xsd:int" />
+      <xsd:element name="Typ_vyhledani" type="dtt:ares_vyber_typ" />
+      <xsd:element name="Klicove_polozky" type="klicove_polozky" />
+      <xsd:element minOccurs="0" name="Nazev_obce" type="udt:nazev_obce" />
+      <xsd:element minOccurs="0" name="Pravni_forma" type="udt:kod_pravni_formy" />
+      <xsd:element minOccurs="0" name="Datum_platnosti" type="xsd:date" />
+      <xsd:element minOccurs="0" name="Typ_registru" type="dtt:typ_registru" />
+      <xsd:element minOccurs="0" default="10" name="Max_pocet" type="xsd:int" />
+      <xsd:element minOccurs="0" default="true" name="Diakritika" type="xsd:boolean" />
+      <xsd:element minOccurs="0" default="true" name="Aktivni" type="xsd:boolean" />
+      <xsd:element minOccurs="0" default="false" name="Adr_puv" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="klicove_polozky">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="cs">
+Skupina kl????ov??ch element??. 
+Jednotliv?? elementy mohou b??t vynech??ny, mus?? b??t p????tomen alespo?? jeden. 
+Nebude-li ani jeden, je to pova??ov??no za z??va??nou chybu.
+Za z??va??nou chybu je pova??ov??no nenumerick?? i?? ??i r?? nebo i?? del???? ne?? 8 znak?? a r?? krat???? ne?? 9 znak?? nebo zad??n?? n??zvu obchodn?? firmy, na kter?? se vr??t?? v??ce ne?? Max_pocet odpov??d??.
+P??i zji??t??n?? deseti z??va??n??ch chyb dojde k zablokov??n?? IP adresy u??ivatele!
+</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="ICO" type="udt:ico" />
+      <xsd:element minOccurs="0" name="Rodne_cislo" type="udt:rodne_cislo" />
+      <xsd:element minOccurs="0" name="Obchodni_firma" type="udt:obchodni_firma" />
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

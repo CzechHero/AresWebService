@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="86f15d47-22f4-4368-a0fd-3385f43a83b0" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>true</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/rzp_1.0.4.wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ares_answer_rzp_v_1.xsd" MetadataType="Schema" ID="d14b91d8-8054-4d75-aff8-913505df2b7f" SourceId="1" SourceUrl="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_rzp/v_1.0.4/ares_answer_rzp_v_1.0.4.xsd" />
+    <MetadataFile FileName="ares_datatypes_v_1.xsd" MetadataType="Schema" ID="dbb77d21-05a4-4061-a07f-8a96b25854cf" SourceId="1" SourceUrl="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4/ares_datatypes_v_1.0.4.xsd" />
+    <MetadataFile FileName="uvis_datatypes_v_1.xsd" MetadataType="Schema" ID="9c2c06ca-db3f-4ede-9e64-360e1fb0f4aa" SourceId="1" SourceUrl="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd" />
+    <MetadataFile FileName="ares_request_rzp_v_1.xsd" MetadataType="Schema" ID="5b25571a-eb9b-4ee4-bc0d-4254bd15ac55" SourceId="1" SourceUrl="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_rzp/v_1.0.4/ares_request_rzp_v_1.0.4.xsd" />
+    <MetadataFile FileName="RzpService.wsdl" MetadataType="Wsdl" ID="a93178ce-464a-4072-b2fd-f214acd7d6a8" SourceId="1" SourceUrl="http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/rzp_1.0.4.wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:U="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.3" xmlns:D="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.3" xmlns:are="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3" version="2011-02-14" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.3/ares_datatypes_v_1.0.3.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.3" />
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.3/uvis_datatypes_v_1.0.3.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.3" />
+  <xsd:annotation>
+    <xsd:appinfo>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+        <rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3">
+          <dc:title>XML Schema pro odpov???? na dotaz na V??pis z Obchodn??ho rejst????ku</dc:title>
+          <dc:creator>Pavel Srb (Pavel.Srb@asseco.cz)</dc:creator>
+          <dc:creator>Asseco Czech Republic, a.s.</dc:creator>
+          <dc:subject>XML Schema; odpov????; v??pis z obchodn??ho rejst????ku; ARES</dc:subject>
+          <dc:description>XML Schema s definic?? pro v??pis z obchodn??ho rejst????ku</dc:description>
+          <dc:publisher> Ministerstvo financ?? ??esk?? republiky </dc:publisher>
+          <dc:date>2007-05-11</dc:date>
+          <dc:type> XML Schema</dc:type>
+          <dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3/ares_answer_or_v_1.0.3.xsd</dc:identifier>
+          <dc:format>text/xml</dc:format>
+          <dc:language>cz</dc:language>
+          <dc:rights>  Asseco Czech Republic, a.s. 2007-2011</dc:rights>
+        </rdf:Description>
+      </rdf:RDF>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:element name="Ares_odpovedi">
+    <xsd:annotation>
+      <xsd:documentation>Ko??enov?? element</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" name="Odpoved" type="D:odpoved_OR" />
+        <xsd:element minOccurs="0" name="Fault" type="D:chybova_odpoved" />
+      </xsd:sequence>
+      <xsd:attribute name="odpoved_datum_cas" type="xsd:dateTime" use="required" />
+      <xsd:attribute name="odpoved_pocet" type="xsd:int" use="required" />
+      <xsd:attribute fixed="Vypis_OR" name="odpoved_typ" type="D:ares_dotaz_typ" />
+      <xsd:attribute default="XML" name="vystup_format" type="D:vystup_format" use="optional" />
+      <xsd:attribute default="klient" name="xslt" type="D:xslt_ks" use="optional" />
+      <xsd:attribute name="validation_XSLT" type="xsd:string" use="required" />
+      <xsd:attribute name="Id" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

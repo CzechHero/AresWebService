@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_rzp/v_1.0.4" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_rzp/v_1.0.4" version="2011-06-24" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4/ares_datatypes_v_1.0.4.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" />
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" />
+  <xsd:annotation>
+    <xsd:documentation xml:lang="cs">
+			Sch??ma pro dotazov??n?? registru ARES - dotazy na registr ??ivnostensk??ho podnik??n??
+			verze 1.0.4
+			(????slem verze navazuje na spole??n?? datov?? typy ARES)
+			
+			Datov?? struktura odpov??di je v??razn?? odli??n?? od p??edchoz?? verze 1.0.1. 
+			Mo??n?? verze odpov??di na tento dotaz:
+			answerNamespaceRequired=http://wwwinfo.mfcr.czhttp://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_rzp/v_1.0.5
+			(nebo o jednu verzi ni??????, pokud nebude po??adov??n v??pis ve zkratk??ch).
+			
+			Copyright 2007 Asseco Czech Republic, a.s. V??echna pr??va vyhrazena
+			Copyright Asseco Central Europe, a.s. 2011
+		</xsd:documentation>
+    <xsd:appinfo>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+        <rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_rzp/v_1.0.4">
+          <dc:title>XML Schema s definic?? datov??ho typu pro zad??n?? dotazu na v??pis r??p verze v_1.0.4</dc:title>
+          <dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+          <dc:creator>Asseco Central Europe, a.s.</dc:creator>
+          <dc:subject>XML Schema; r??p; datov?? typy ARES; ARES</dc:subject>
+          <dc:description>N??vrh XML Schema s definic?? datov??ho typu pro zad??n?? dotazu na v??pis r??p verze v_1.0.4</dc:description>
+          <dc:publisher> Ministerstvo financ?? ??esk?? republiky </dc:publisher>
+          <dc:date>2007-05-11</dc:date>
+          <dc:type> XML Schema</dc:type>
+          <dc:identifier>"http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_rzp/v_1.0.4/ares_request_rzp_v_1.0.4.xsd"</dc:identifier>
+          <dc:format>text/xml</dc:format>
+          <dc:language>cz</dc:language>
+          <dc:rights>?? Asseco Central Europe, a.s. 2011</dc:rights>
+        </rdf:Description>
+      </rdf:RDF>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:complexType name="dotaz">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Pomocne_ID" type="xsd:int" />
+      <xsd:element name="ICO" type="udt:ico" />
+      <xsd:element minOccurs="0" name="Rozsah" type="dtt:rozsah" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Ares_dotazy">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" name="Dotaz" type="dotaz" />
+      </xsd:sequence>
+      <xsd:attribute name="dotaz_datum_cas" type="xsd:dateTime" use="required" />
+      <xsd:attribute name="dotaz_pocet" type="xsd:int" use="required" />
+      <xsd:attribute name="dotaz_typ" type="dtt:ares_dotaz_typ" use="required" />
+      <xsd:attribute default="XML" name="vystup_format" type="dtt:vystup_format" use="optional" />
+      <xsd:attribute default="klient" name="xslt" type="dtt:xslt_ks" use="optional" />
+      <xsd:attribute name="validation_XSLT" type="xsd:string" use="required" />
+      <xsd:attribute name="user_mail" type="udt:e_mail" use="required" />
+      <xsd:attribute default="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_rzp/v_1.0.5" name="answerNamespaceRequired" type="xsd:anyURI" />
+      <xsd:attribute name="Id" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

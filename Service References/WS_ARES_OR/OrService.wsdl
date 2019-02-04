@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ans="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3" xmlns:req="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsdlns="http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/or.wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.3" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.5" name="OrService" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/or.wsdl" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <documentation>verze: 2010-09-03, Copyright 2010 Asseco Central Europe, a.s. Všechna práva vyhrazena</documentation>
+  <types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema">
+      <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2/ares_request_or_v_1.0.2.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_or/v_1.0.2" />
+      <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3/ares_answer_or_v_1.0.3.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer_or/v_1.0.3" />
+      <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.5/ares_datatypes_v_1.0.5.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.5" />
+    </xsd:schema>
+  </types>
+  <message name="GetHttpSoapOrRequest">
+    <part name="Request" element="req:Ares_dotazy" />
+  </message>
+  <message name="GetHttpSoapOrAnswer">
+    <part name="Answer" element="ans:Ares_odpovedi" />
+  </message>
+  <message name="GetHttpGetOrRequest">
+    <part name="ico" type="udt:ico" />
+    <part name="rozsah" type="dtt:rozsah" />
+    <part name="datum_platnosti" type="xsd:date" />
+    <part name="xml" type="dtt:vystup_format_xml" />
+    <part name="jazyk" type="dtt:jazyk_odkazu" />
+    <part name="ver" type="xsd:string" />
+  </message>
+  <message name="GetHttpGetOrAnswer">
+    <part name="Answer" element="ans:Ares_odpovedi" />
+  </message>
+  <message name="GetHttpOrFault">
+    <part name="Fault" element="ans:Ares_odpovedi" />
+  </message>
+  <portType name="HttpSoapOr">
+    <operation name="GetXmlFile">
+      <documentation>Request/response operace pro získání xml výpisu z OR přes HTTP ve formátu SOAP</documentation>
+      <input name="OrRequest" message="wsdlns:GetHttpSoapOrRequest" />
+      <output name="OrAnswer" message="wsdlns:GetHttpSoapOrAnswer" />
+      <fault name="OrFault" message="wsdlns:GetHttpOrFault" />
+    </operation>
+  </portType>
+  <portType name="HttpGetOr">
+    <operation name="GetXmlFile">
+      <documentation>Request/response operace pro získání xml výpisu z OR přes HTTP GET</documentation>
+      <input name="OrRequest" message="wsdlns:GetHttpGetOrRequest" />
+      <output name="OrAnswer" message="wsdlns:GetHttpGetOrAnswer" />
+      <fault name="OrFault" message="wsdlns:GetHttpOrFault" />
+    </operation>
+  </portType>
+  <binding name="HttpSoapOrBinding" type="wsdlns:HttpSoapOr">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="GetXmlFile">
+      <soap:operation soapAction="" style="document" />
+      <input name="OrRequest">
+        <soap:body use="literal" />
+      </input>
+      <output name="OrAnswer">
+        <soap:body use="literal" />
+      </output>
+      <fault name="OrFault">
+        <soap:fault use="literal" name="OrFault" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <binding name="HttpGetOrBinding" type="wsdlns:HttpGetOr">
+    <http:binding verb="GET" />
+    <operation name="GetXmlFile">
+      <http:operation location="/darv_or.cgi" />
+      <input name="OrRequest">
+        <http:urlEncoded />
+      </input>
+      <output name="OrAnswer">
+        <mime:mimeXml part="Answer" />
+      </output>
+      <fault name="OrFault">
+        <mime:mimeXml part="Fault" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="OrService">
+    <documentation>Služba poskytuje XML výpis OR ve zkratkách</documentation>
+    <port name="OrHttpSoapPort" binding="wsdlns:HttpSoapOrBinding">
+      <documentation>Port pro Http Soap rozhraní služby OrService</documentation>
+      <soap:address location="http://wwwinfo.mfcr.cz/cgi-bin/ares/xar.cgi" />
+    </port>
+    <port name="OrHttpGetPort" binding="wsdlns:HttpGetOrBinding">
+      <documentation>Port pro Http Get rozhraní služby OrService</documentation>
+      <http:address location="http://wwwinfo.mfcr.cz/cgi-bin/ares" />
+    </port>
+  </service>
+</definitions>

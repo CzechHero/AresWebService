@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.2" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_orrg/v_1.0.0" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_orrg/v_1.0.0" version="2011-06-24" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.2/ares_datatypes_v_1.0.2.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.2" />
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" />
+  <xsd:annotation>
+    <xsd:documentation xml:lang="cs">
+			Sch??ma pro dotazov??n?? registru ARES - dotazy na seznam registr?? a na v??pis z
+			obchodn??ho rejst????ku verze 1.0.0
+			
+			Sch??mata t??to verze 1.0.0 p????slu???? verzi dokumentace "Rozhran?? IS CEDR a dal????ch IS pro
+			evidenci dotac?? na registry UIR-ADR a ARES realizovan?? on-line prost??ednictv??m Internetu 
+			verze 1.10b"
+
+			Copyright 2000-2001 ASD Software. V??echna pr??va vyhrazena
+			Copyright Asseco Central Europe, a.s. 2011
+------
+Roz??????en?? funk??nosti pro PVT a.s.
+
+Pozn??mka: n??sleduj??c?? verze pro dotaz na v??pis z Obchodn??ho rejst????ku je ve sch??matu ares_request_or_v_1.0.2.xsd
+
+Pro mo??nost z??sk??n?? odpov??di v jin?? verzi, ne?? je verze dotazu, byl p??id??n parametr answerNamespaceRequired
+Pro mo??nost identifikace autora dotazu byl p??id??n atribut pro e-mailovou adresu dotazuj??c??ho user_mail
+
+Pro nov?? vznikl?? dotazy (r??p, res, devizov?? m??sta, c??rkve, basic), kter?? jsou definov??ny atributem dotaz_typ, funguje dotaz s parametrem ICO (ale nebere se ohled na Datum_platnosti)
+
+Leden 2004
+nov?? p??idan?? atributy user_mail a answerNamespaceRequired si vy????daly zm??nu verze spole??n??ch datov??ch typ??.
+Zpracov??n?? dotaz?? s jmenn??mi prostory 1.0.0 z??st??v?? zachov??no.
+
+		</xsd:documentation>
+    <xsd:appinfo>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+        <rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_orrg/v_1.0.0">
+          <dc:title>XML Schema, obecn?? request na slu??bu v ARES</dc:title>
+          <dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+          <dc:creator>Asseco Central Europe, a.s.</dc:creator>
+          <dc:subject>XML Schema; ARES; obecn?? request</dc:subject>
+          <dc:description>Po??adavek na slu??bu v ARES pomoc?? i??</dc:description>
+          <dc:publisher>Ministerstvo financ?? ??esk?? republiky </dc:publisher>
+          <dc:date>2010-07-16</dc:date>
+          <dc:type> XML Schema</dc:type>
+          <dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request_orrg/v_1.0.0/ares_request_orrg.xsd</dc:identifier>
+          <dc:format>text/xml</dc:format>
+          <dc:language>cz</dc:language>
+          <dc:rights>?? Asseco Central Europe, a.s. 2011</dc:rights>
+        </rdf:Description>
+      </rdf:RDF>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:group name="ICO_datum">
+    <xsd:sequence>
+      <xsd:element name="ICO" type="udt:ico" />
+      <xsd:element minOccurs="0" name="Datum_platnosti" type="xsd:date" />
+      <xsd:element minOccurs="0" default="true" name="Aktivni" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:group name="klic_datum">
+    <xsd:sequence>
+      <xsd:element name="Klic_ARES" type="xsd:int" />
+      <xsd:element minOccurs="0" name="Datum_platnosti" type="xsd:date" />
+    </xsd:sequence>
+  </xsd:group>
+  <xsd:complexType name="dotaz">
+    <xsd:sequence>
+      <xsd:element name="Pomocne_ID" type="xsd:int" />
+      <xsd:choice>
+        <xsd:group ref="ICO_datum" />
+        <xsd:group ref="klic_datum" />
+        <xsd:element name="ID_vety" type="xsd:int" />
+      </xsd:choice>
+      <xsd:element minOccurs="0" name="Rozsah" type="dtt:rozsah" />
+      <xsd:element minOccurs="0" default="false" name="Adr_puv" type="xsd:boolean" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Ares_dotazy">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" name="Dotaz" type="dotaz" />
+      </xsd:sequence>
+      <xsd:attribute name="dotaz_datum_cas" type="xsd:dateTime" use="required" />
+      <xsd:attribute name="dotaz_pocet" type="xsd:int" use="required" />
+      <xsd:attribute name="dotaz_typ" type="dtt:ares_dotaz_typ" use="required" />
+      <xsd:attribute default="XML" name="vystup_format" type="dtt:vystup_format" use="optional" />
+      <xsd:attribute name="validation_XSLT" type="xsd:string" use="required" />
+      <xsd:attribute name="user_mail" type="udt:e_mail" use="optional" />
+      <xsd:attribute name="answerNamespaceRequired" type="xsd:anyURI" use="required" />
+      <xsd:attribute name="Id" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

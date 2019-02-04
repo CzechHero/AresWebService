@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" elementFormDefault="qualified" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1" version="2010-10-12" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4/ares_datatypes_v_1.0.4.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" />
+  <xsd:import schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd" namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" />
+  <xsd:annotation>
+    <xsd:documentation xml:lang="cs">
+Sch??ma pro odpov??di z registru ARES verze 1.0.1
+Copyright 2007-2009 Asseco Czech Republic, a.s.V??echna pr??va vyhrazena
+Copyright Asseco Central Europe, a.s. 2010
+
+		</xsd:documentation>
+    <xsd:appinfo>
+      <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+        <rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1">
+          <dc:title>XML Schema, detail Standard</dc:title>
+          <dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+          <dc:creator>Asseco Central Europe, a.s.</dc:creator>
+          <dc:subject>XML Schema; ARES; Standard; nejlep???? v??ta</dc:subject>
+          <dc:description>Detail Standard vyb??r?? z tzv. nejlep???? v??ty v j??dru ARES</dc:description>
+          <dc:publisher>Ministerstvo financ?? ??esk?? republiky </dc:publisher>
+          <dc:date>2010-07-16</dc:date>
+          <dc:type> XML Schema</dc:type>
+          <dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1/ares_request_v_1.0.1.xsd</dc:identifier>
+          <dc:format>text/xml</dc:format>
+          <dc:language>cz</dc:language>
+          <dc:rights>?? Asseco Central Europe, a.s. 2010</dc:rights>
+        </rdf:Description>
+      </rdf:RDF>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:simpleType name="vyhledano_dle">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="ICO" />
+      <xsd:enumeration value="RC" />
+      <xsd:enumeration value="OF" />
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="identifikace">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="cs">Definice elementu identifikace subjektu</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Osoba" type="dtt:fyzicka_osoba" />
+      <xsd:element minOccurs="0" name="Adresa_ARES" type="dtt:adresa_ARES" />
+      <xsd:element minOccurs="0" name="Adr_puv" type="dtt:adresa_ARES" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="zaznam">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Shoda_ICO" type="dtt:shoda_ICO" />
+      <xsd:element minOccurs="0" name="Shoda_RC" type="dtt:shoda_RC" />
+      <xsd:element minOccurs="0" name="Shoda_OF" type="dtt:shoda_OF" />
+      <xsd:element name="Vyhledano_dle" type="vyhledano_dle" />
+      <xsd:element name="Typ_registru" type="dtt:typ_registru" />
+      <xsd:element minOccurs="0" name="Datum_vzniku" type="xsd:date" />
+      <xsd:element minOccurs="0" name="Datum_zaniku" type="xsd:date" />
+      <xsd:element name="Datum_platnosti" type="xsd:date" />
+      <xsd:element name="Pravni_forma" type="dtt:pravni_forma" />
+      <xsd:element name="Obchodni_firma" type="udt:obchodni_firma" />
+      <xsd:element minOccurs="0" name="ICO" type="udt:ico" />
+      <xsd:element minOccurs="0" name="Identifikace" type="identifikace" />
+      <xsd:element minOccurs="0" name="Kod_FU" type="dtt:kod_fu" />
+      <xsd:element minOccurs="0" name="Priznaky_subjektu" type="dtt:priznaky_subjektu" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="odpoved">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="Pomocne_ID" type="xsd:int" />
+      <xsd:element minOccurs="0" maxOccurs="2" name="Error" type="dtt:error_ARES" />
+      <xsd:element minOccurs="0" name="Pocet_zaznamu" type="dtt:pocet_zaznamu" />
+      <xsd:element minOccurs="0" name="Typ_vyhledani" type="dtt:ares_vyber_typ" />
+      <xsd:element minOccurs="0" maxOccurs="unbounded" name="Zaznam" type="zaznam" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Ares_odpovedi">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element maxOccurs="unbounded" name="Odpoved" type="odpoved" />
+        <xsd:element minOccurs="0" name="Fault" type="dtt:chybova_odpoved" />
+      </xsd:sequence>
+      <xsd:attribute name="odpoved_datum_cas" type="xsd:dateTime" use="required" />
+      <xsd:attribute name="odpoved_pocet" type="xsd:int" use="required" />
+      <xsd:attribute fixed="Standard" name="odpoved_typ" type="dtt:ares_dotaz_typ" />
+      <xsd:attribute default="XML" name="vystup_format" type="dtt:vystup_format" use="optional" />
+      <xsd:attribute default="klient" name="xslt" type="dtt:xslt_ks" use="optional" />
+      <xsd:attribute name="validation_XSLT" type="xsd:string" use="required" />
+      <xsd:attribute name="Id" type="xsd:string" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
